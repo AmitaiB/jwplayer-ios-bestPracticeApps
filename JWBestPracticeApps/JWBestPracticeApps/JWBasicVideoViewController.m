@@ -7,6 +7,7 @@
 //
 
 #import "JWBasicVideoViewController.h"
+#import <AVFoundation/AVFoundation.h>
 
 #define videoFile @"http://playertest.longtailvideo.com/adaptive/oceans/oceans.m3u8"
 #define posterImage @"http://d3el35u4qe4frz.cloudfront.net/bkaovAYt-480.jpg"
@@ -40,6 +41,12 @@
     self.player.forceFullScreenOnLandscape = YES;
     self.player.view.center = self.view.center;
     self.player.delegate = self;
+    
+    NSError *error;
+    [AVAudioSession.sharedInstance setCategory:AVAudioSessionCategoryPlayback error:&error];
+    if (error) {
+        NSLog(@"Error setting Audio Session category to playback mode: %@", error.localizedDescription);
+    }
 }
 
 @end
